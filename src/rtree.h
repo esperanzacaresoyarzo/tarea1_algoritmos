@@ -23,4 +23,8 @@ typedef struct {
     char pad[12];
 } Node;
 
+float centerX(Rect r);
+float centerY(Rect r);
+Rect computeMBR(Entry* entries, int start, int end);
+
 #endif
