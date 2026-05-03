@@ -1,0 +1,19 @@
+# Compilados
+*.o
+*.out
+*.exe
+main
+
+# Binarios grandes
+data/*.bin
+results/*.bin
+
+# Sistema
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Resultados temporales
+results/*.csv
+results/*.png
