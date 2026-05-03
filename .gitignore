@@ -16,4 +16,4 @@ results/*.bin
 
 # Resultados temporales
 results/*.csv
-results/*.png
+results/*.pngmain
