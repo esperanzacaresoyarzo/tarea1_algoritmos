@@ -65,3 +65,58 @@ int buildSTRLevel(Entry* entries, int n, Node* nodes, int* nodeCount, Entry* par
 
     return parentCount;
 }
+
+int buildSTR(Entry* entries, int n, Node* nodes) {
+    int nodeCount = 1; // nodes[0] reservado para la raíz
+
+    Entry* currentEntries = malloc(sizeof(Entry) * n);
+
+    if (!currentEntries) {
+        return -1;
+    }
+
+    for (int i = 0; i < n; i++) {
+        currentEntries[i] = entries[i];
+    }
+
+    int currentCount = n;
+
+    while (currentCount > B) {
+        int maxParents = (currentCount + B - 1) / B + 10;
+        Entry* parentEntries = malloc(sizeof(Entry) * maxParents);
+
+        if (!parentEntries) {
+            free(currentEntries);
+            return -1;
+        }
+
+        int parentCount = buildSTRLevel(
+            currentEntries,
+            currentCount,
+            nodes,
+            &nodeCount,
+            parentEntries
+        );
+
+        for (int i = 0; i < parentCount; i++) {
+            currentEntries[i] = parentEntries[i];
+        }
+
+        currentCount = parentCount;
+
+        free(parentEntries);
+    }
+
+    Node root;
+    root.k = currentCount;
+
+    for (int i = 0; i < currentCount; i++) {
+        root.children[i] = currentEntries[i];
+    }
+
+    nodes[0] = root;
+
+    free(currentEntries);
+
+    return nodeCount;
+}

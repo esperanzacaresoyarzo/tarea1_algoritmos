@@ -27,4 +27,10 @@ float centerX(Rect r);
 float centerY(Rect r);
 Rect computeMBR(Entry* entries, int start, int end);
 
+int buildSTR(Entry* entries, int n, Node* nodes);
+
+int readPoints(const char* filename, Entry* entries, int maxPoints);
+
+void writeTree(const char* filename, Node* nodes, int nodeCount);
+
 #endif

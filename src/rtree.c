@@ -1,5 +1,5 @@
 #include "rtree.h"
-
+#include <stdio.h>
 
 float centerX(Rect r) {
     return (r.x1 + r.x2) / 2.0f;
@@ -20,4 +20,47 @@ Rect computeMBR(Entry* entries, int start, int end) {
     }
 
     return r;
+}
+
+
+
+int readPoints(const char* filename, Entry* entries, int maxPoints) {
+    FILE* file = fopen(filename, "rb");
+
+    if (!file) {
+        return -1;
+    }
+
+    int count = 0;
+
+    while (count < maxPoints) {
+        float x, y;
+
+        if (fread(&x, sizeof(float), 1, file) != 1) break;
+        if (fread(&y, sizeof(float), 1, file) != 1) break;
+
+        entries[count].mbr.x1 = x;
+        entries[count].mbr.x2 = x;
+        entries[count].mbr.y1 = y;
+        entries[count].mbr.y2 = y;
+        entries[count].child = -1;
+
+        count++;
+    }
+
+    fclose(file);
+
+    return count;
+}
+
+void writeTree(const char* filename, Node* nodes, int nodeCount) {
+    FILE* file = fopen(filename, "wb");
+
+    if (!file) {
+        printf("No se pudo crear el archivo del arbol\n");
+        return;
+    }
+
+    fwrite(nodes, sizeof(Node), nodeCount, file);
+    fclose(file);
 }
