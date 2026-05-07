@@ -52,7 +52,7 @@ void nearestX(int N, char *file, char *newFile) {
     fclose(archivo);
     
     qsort(pares, N, sizeof(Entry), compare);
-    Node *arbol = (Node *)malloc((N/(B-1) +3)*sizeof(Node));
+    Node *arbol = (Node *)malloc(ceil((N-1)/(B-1)) +2)*sizeof(Node);
 
     int offset = 1;
     while (N > B) {
@@ -84,7 +84,7 @@ void nearestX(int N, char *file, char *newFile) {
     }
 
     FILE *newArchivo = fopen(newFile, "w");
-    for (int i=0; i<(N/(B-1) +3); i++) {
+    for (int i=0; i<(ceil((N-1)/(B-1)) +2); i++) {
         fwrite(&arbol[i], sizeof(Node), 1, newArchivo);
     }
     fclose(newArchivo);
