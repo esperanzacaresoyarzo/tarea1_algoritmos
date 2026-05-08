@@ -32,7 +32,7 @@ Rect MBR(Entry arr[], int size) {
 // Metodo de bulk-loading Nearest-X
 // N el numero de elementos a ocupar del archivo de nombre file
 // newFile nombre del archivo que guardara el arbol R-Tree
-void nearestX(int N, char *file, char *newFile) {
+int nearestX(int N, char *file, char *newFile) {
     Entry *pares = (Entry *)malloc(N*sizeof(Entry));
     FILE *archivo = fopen(file, "r");
     if (archivo == NULL) {
@@ -52,7 +52,8 @@ void nearestX(int N, char *file, char *newFile) {
     fclose(archivo);
     
     qsort(pares, N, sizeof(Entry), compare);
-    Node *arbol = (Node *)malloc(ceil((N-1)/(B-1)) +2)*sizeof(Node);
+    Node *arbol = (Node *)malloc( (((N-1)/(B-1)) +3) *sizeof(Node));
+    int nodeCount = 0;
 
     int offset = 1;
     while (N > B) {
@@ -70,6 +71,7 @@ void nearestX(int N, char *file, char *newFile) {
             pares[pares_i] = newPar;
             pares_i++;
             pares_off++;
+            nodeCount++;
             N_temp -= B;
         }
         N = N/B +1;
@@ -82,13 +84,15 @@ void nearestX(int N, char *file, char *newFile) {
         arbol[0].children[j] = pares[j];
         arbol[0].k++;
     }
+    nodeCount++;
 
     FILE *newArchivo = fopen(newFile, "w");
-    for (int i=0; i<(ceil((N-1)/(B-1)) +2); i++) {
+    for (int i=0; i<(((N-1)/(B-1)) +3); i++) {
         fwrite(&arbol[i], sizeof(Node), 1, newArchivo);
     }
     fclose(newArchivo);
 
     free(arbol);
     free(pares);
+    return nodeCount;
 }
