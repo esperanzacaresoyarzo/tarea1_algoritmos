@@ -23,4 +23,6 @@ typedef struct {
     char pad[12];
 } Node;
 
+int nearestX(int N, char *file, char *newFile);
+
 #endif
