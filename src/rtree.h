@@ -23,4 +23,6 @@ typedef struct {
     char pad[12];
 } Node;
 
+void buildTree();
+
 #endif
