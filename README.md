@@ -8,7 +8,7 @@ CC4102 - Diseño y Análisis de Algoritmos
 - Nombre 3
 
 ## Lenguaje
-C++
+C
 
 ## Compilar
 
