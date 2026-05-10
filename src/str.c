@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
 int compareX(const void* a, const void* b) {
     Entry* e1 = (Entry*)a;
@@ -60,6 +61,11 @@ int buildSTRLevel(Entry* entries, int n, Node* nodes, int* nodeCount, Entry* par
             parentEntries[parentCount].mbr = computeMBR(entries, groupStart, groupEnd);
             parentEntries[parentCount].child = index;
             parentCount++;
+
+            if (parentCount > n) {
+                printf("Error: parentCount excede n\n");
+                exit(1);
+}
         }
     }
 
@@ -82,8 +88,7 @@ int buildSTR(Entry* entries, int n, Node* nodes) {
     int currentCount = n;
 
     while (currentCount > B) {
-        int maxParents = (currentCount + B - 1) / B + 10;
-        Entry* parentEntries = malloc(sizeof(Entry) * maxParents);
+        Entry* parentEntries = malloc(sizeof(Entry) * currentCount);
 
         if (!parentEntries) {
             free(currentEntries);
