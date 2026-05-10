@@ -3,6 +3,9 @@
 #include "rtree.h"
 
 int main() {
+    
+    printf("Tamano Node: %lu bytes\n", sizeof(Node));
+
     int maxPoints = 1000000;
 
     Entry* entries = malloc(sizeof(Entry) * maxPoints);

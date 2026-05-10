@@ -9,6 +9,9 @@ float centerY(Rect r) {
     return (r.y1 + r.y2) / 2.0f;
 }
 
+// computeMBR: Entry* int int -> Rect
+// Recibe un arreglo de entradas, una posicion inicial y una posicion final no inclusiva
+// y retorna el MBR que contiene todas las entradas entre start y end - 1
 Rect computeMBR(Entry* entries, int start, int end) {
     Rect r = entries[start].mbr;
 
@@ -22,7 +25,9 @@ Rect computeMBR(Entry* entries, int start, int end) {
     return r;
 }
 
-
+// readPoints: const char* Entry* int -> int
+// Recibe la ruta de un archivo binario, un arreglo de entradas y la cantidad maxima a leer
+// retorna la cantidad de puntos leidos, o -1 si no pudo abrir el archivo
 
 int readPoints(const char* filename, Entry* entries, int maxPoints) {
     FILE* file = fopen(filename, "rb");
@@ -53,6 +58,9 @@ int readPoints(const char* filename, Entry* entries, int maxPoints) {
     return count;
 }
 
+// writeTree: const char* Node* int -> void
+// Recibe una ruta de salida, un arreglo de nodos y la cantidad de nodos.
+// escribe el arbol en disco
 void writeTree(const char* filename, Node* nodes, int nodeCount) {
     FILE* file = fopen(filename, "wb");
 
