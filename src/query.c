@@ -2,13 +2,9 @@
 #include <stdio.h>
 
 /*
- Lee el nodo en la posicion index del archivo binario del arbol.
- Incrementa *ios en 1 por cada llamada.
- file: archivo binario abierto en modo "rb"
- index: posicion del nodo en el archivo
- ios: contador de lecturas a disco
- retorna: el nodo leido
- */
+Lee el nodo en la posicion index del archivo binario file del arbol.
+Incrementa *ios en 1 por cada llamada. Se retorna el nodo leido.
+*/
 Node readNode(FILE* file, int index, int* ios) {
     Node node;
     fseek(file, index * sizeof(Node), SEEK_SET);
@@ -18,10 +14,9 @@ Node readNode(FILE* file, int index, int* ios) {
 }
 
 /*
- Determina si dos rectangulos se intersectan.
- rect1, rect2: rectangulos a comparar
- retorna: 1 si se intersectan, 0 si no
- */
+Determina si dos rectangulos (rect 1 y rect2) se intersectan.
+Devuelve 1 si se intersectan, 0 si no
+*/
 int intersects(Rect rect1, Rect rect2) {
     if (rect1.x2 < rect2.x1) return 0;
     if (rect1.x1 > rect2.x2) return 0;
@@ -31,14 +26,15 @@ int intersects(Rect rect1, Rect rect2) {
 }
 
 /*
- Busca recursivamente los puntos contenidos en query a partir del nodo en index.
- file: archivo binario del arbol abierto en modo "rb"
- index: indice del nodo actual
- query: rectangulo de consulta
- ios: contador de lecturas a disco
- results: arreglo donde se acumulan los puntos encontrados
- resultCount: cantidad de puntos encontrados hasta ahora
- */
+Busca recursivamente los puntos contenidos en query a partir del nodo en index.
+Parametros:
+file: archivo binario del arbol abierto en modo "rb"
+index: indice del nodo actual
+query: rectangulo de consulta
+ios: contador de lecturas a disco
+results: arreglo para guardar los puntos encontrados
+resultCount: cantidad de puntos encontrados hasta ahora
+*/
 void searchNode(FILE* file, int index, Rect query, int* ios, Point* results, int* resultCount) {
     Node node = readNode(file, index, ios);
 
@@ -63,11 +59,13 @@ void searchNode(FILE* file, int index, Rect query, int* ios, Point* results, int
 
 /*
  Realiza una consulta por rectangulo sobre el arbol guardado en filename.
+ Parametros:
  filename: ruta del archivo binario del arbol
- queryRect: rectangulo de consulta {x1, x2, y1, y2}
- results: arreglo pre-allocado donde se guardan los puntos encontrados
- ios: se inicializa en 0 y se incrementa por cada lectura a disco
- retorna: cantidad de puntos encontrados
+ queryRect: rectangulo de consulta
+ results: arreglo donde se guardan los puntos encontrados
+ ios: contador de lecturas de disco
+ 
+ Se retorna cantidad de puntos encontrados
  */
 int query(const char* filename, Rect queryRect, Point* results, int* ios) {
     FILE* file = fopen(filename, "rb");

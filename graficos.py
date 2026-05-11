@@ -1,13 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-# ─── Datos de construccion ───────────────────────────────────────────────────
-
+# Datos de construccion
 N_values = [2**i for i in range(15, 25)]
 
+# Abre resultados de los experimentos de construccion
 with open("timeResults.txt") as f:
     lines = f.readlines()
 
+# Funcion para obetner los tiempos del .txt
 def parse_times(line):
     start = line.index('[') + 1
     end = line.index(']')
@@ -18,12 +19,13 @@ rnd_str = parse_times(lines[2])
 eu_nx   = parse_times(lines[4])
 eu_str  = parse_times(lines[5])
 
+# Grafico
 plt.figure()
 plt.plot(N_values, rnd_nx,  marker='o', label='Random Nearest-X')
 plt.plot(N_values, rnd_str, marker='s', label='Random STR')
 plt.plot(N_values, eu_nx,   marker='^', label='Europa Nearest-X')
 plt.plot(N_values, eu_str,  marker='D', label='Europa STR')
-plt.xscale('log', base=2)
+plt.xscale('log', base=2) # escala logaritmica para N
 plt.xlabel('N')
 plt.ylabel('Tiempo (ms)')
 plt.title('Tiempo de construccion vs N')
@@ -32,8 +34,7 @@ plt.tight_layout()
 plt.savefig('graficos/construccion.png', dpi=150)
 plt.close()
 
-# ─── Datos de consultas ───────────────────────────────────────────────────────
-
+# Datos de consultas
 s_values = [0.0025, 0.005, 0.01, 0.025, 0.05]
 
 trees = ['Random Nearest-X', 'Europa Nearest-X', 'Random STR', 'Europa STR']
@@ -43,9 +44,11 @@ ios_std  = {t: [] for t in trees}
 pts_avg  = {t: [] for t in trees}
 pts_std  = {t: [] for t in trees}
 
+# Abre txt con los resultados
 with open("queryResults.txt") as f:
     content = f.read()
 
+# Obtener datos del txt
 blocks = [b.strip() for b in content.strip().split('\n\n') if b.strip()]
 
 for block in blocks:
@@ -58,8 +61,7 @@ for block in blocks:
         pts_avg[tree_name].append(float(parts[3].split('=')[1]))
         pts_std[tree_name].append(float(parts[4].split('=')[1]))
 
-# ─── Grafico I/Os vs s ────────────────────────────────────────────────────────
-
+# Graficos
 plt.figure()
 for tree in trees:
     plt.plot(s_values, ios_avg[tree], marker='o', label=tree)
@@ -71,7 +73,7 @@ plt.tight_layout()
 plt.savefig('graficos/ios_vs_s.png', dpi=150)
 plt.close()
 
-# ─── Grafico puntos encontrados vs s - dataset aleatorio ─────────────────────
+#  Grafico puntos encontrados vs s. dataset aleatorio 
 
 plt.figure()
 for tree in ['Random Nearest-X', 'Random STR']:
@@ -84,7 +86,7 @@ plt.tight_layout()
 plt.savefig('graficos/puntos_random.png', dpi=150)
 plt.close()
 
-# ─── Grafico puntos encontrados vs s - dataset Europa ────────────────────────
+#  Grafico puntos encontrados vs s. dataset Europa 
 
 plt.figure()
 for tree in ['Europa Nearest-X', 'Europa STR']:

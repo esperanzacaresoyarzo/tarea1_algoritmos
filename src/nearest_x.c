@@ -4,7 +4,9 @@
 #include <stdlib.h>
 #include <math.h>
 
-
+// Compara dos Entry segun el centro X de su MBR, para usar con qsort.
+// a y b son punteros a Entry a comparar. Devuelve -1 si a va antes,
+// 1 si b va antes, 0 si son iguales.
 int compare(const void* a, const void* b) {
     Entry* p1 = (Entry*)a;
     Entry* p2 = (Entry*)b;

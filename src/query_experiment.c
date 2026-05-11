@@ -7,12 +7,9 @@
 #define NUM_SIZES 5
 
 /*
-Calcula la desviacion estandar de un arreglo de valores.
-values: arreglo de valores
-n: cantidad de valores
-mean: promedio de los valores
-retorna: desviacion estandar
- */
+Calcula la desviacion estandar de un arreglo de valores values, con
+n elementos y con promedio mean
+*/
 static double stddev(double* values, int n, double mean) {
     double sum = 0.0;
     for (int i = 0; i < n; i++) {
@@ -43,20 +40,11 @@ void queryExperiment() {
         "Europa STR"
     };
 
-    int N = 1 << 24;
+    int N = 1 << 24; // N = 2^24
     Point* results = malloc(sizeof(Point) * N);
-    if (!results) {
-        printf("Error de memoria\n");
-        return;
-    }
-
     FILE* out = fopen("queryResults.txt", "w");
-    if (!out) {
-        printf("No se pudo crear queryResults.txt\n");
-        free(results);
-        return;
-    }
 
+    // Semilla para poder repetir experimento.
     srand(66);
 
     for (int t = 0; t < 4; t++) {
@@ -68,7 +56,7 @@ void queryExperiment() {
             double ios_vals[NUM_QUERIES];
             double pts_vals[NUM_QUERIES];
 
-            // generar 100 consultas de lado s y ejecutarlas
+            // Generar 100 consultas de lado s y ejecutarlas
             for (int q = 0; q < NUM_QUERIES; q++) {
                 // generar esquina inferior izquierda aleatoria en [0, 1-s]
                 float x = ((float)rand() / RAND_MAX) * (1.0f - (float)s);

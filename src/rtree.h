@@ -57,6 +57,7 @@ int query(const char* filename, Rect queryRect, Point* results, int* ios);
 
 int nearestX(int N, char *file, char *newFile);
 
+// Funciones de los experimentos:
 void buildTree();
 
 void queryExperiment();
