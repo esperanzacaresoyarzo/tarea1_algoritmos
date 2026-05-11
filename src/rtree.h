@@ -57,4 +57,6 @@ int query(const char* filename, Rect queryRect, Point* results, int* ios);
 
 int nearestX(int N, char *file, char *newFile);
 
+void buildTree();
+
 #endif
