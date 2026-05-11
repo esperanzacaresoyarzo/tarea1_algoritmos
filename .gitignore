@@ -10,6 +10,7 @@ main.dSYM/
 # Binarios grandes
 data/*.bin
 results/*.bin
+trees/*.bin
 
 # Sistema
 .DS_Store

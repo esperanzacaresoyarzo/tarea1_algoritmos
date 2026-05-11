@@ -1,0 +1,28 @@
+Arbol: Random Nearest-X
+s=0.0025: ios_avg=209.27 ios_std=9.27 pts_avg=104.98 pts_std=9.93
+s=0.0050: ios_avg=416.53 ios_std=2.98 pts_avg=417.93 pts_std=20.47
+s=0.0100: ios_avg=829.44 ios_std=6.23 pts_avg=1684.82 pts_std=40.41
+s=0.0250: ios_avg=2069.76 ios_std=3.71 pts_avg=10474.17 pts_std=107.16
+s=0.0500: ios_avg=4135.68 ios_std=4.19 pts_avg=41953.20 pts_std=205.45
+
+Arbol: Europa Nearest-X
+s=0.0025: ios_avg=112.77 ios_std=203.32 pts_avg=196.72 pts_std=1721.92
+s=0.0050: ios_avg=183.50 ios_std=327.32 pts_avg=235.85 pts_std=818.53
+s=0.0100: ios_avg=346.98 ios_std=733.15 pts_avg=1529.47 pts_std=8139.44
+s=0.0250: ios_avg=1534.76 ios_std=2624.45 pts_avg=27853.88 pts_std=164902.51
+s=0.0500: ios_avg=2574.23 ios_std=3891.21 pts_avg=69661.86 pts_std=258004.84
+
+Arbol: Random STR
+s=0.0025: ios_avg=6.26 ios_std=1.11 pts_avg=103.69 pts_std=8.79
+s=0.0050: ios_avg=9.23 ios_std=1.68 pts_avg=416.17 pts_std=18.70
+s=0.0100: ios_avg=18.32 ios_std=1.89 pts_avg=1673.44 pts_std=43.10
+s=0.0250: ios_avg=71.05 ios_std=3.19 pts_avg=10477.15 pts_std=101.28
+s=0.0500: ios_avg=240.85 ios_std=7.17 pts_avg=41917.10 pts_std=215.95
+
+Arbol: Europa STR
+s=0.0025: ios_avg=6.67 ios_std=10.75 pts_avg=230.27 pts_std=1276.36
+s=0.0050: ios_avg=6.38 ios_std=6.01 pts_avg=210.66 pts_std=893.35
+s=0.0100: ios_avg=14.13 ios_std=26.05 pts_avg=1318.90 pts_std=4509.80
+s=0.0250: ios_avg=53.55 ios_std=122.76 pts_avg=8085.79 pts_std=23195.13
+s=0.0500: ios_avg=236.58 ios_std=417.81 pts_avg=42787.48 pts_std=81952.41
+

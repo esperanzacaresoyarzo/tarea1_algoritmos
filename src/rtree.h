@@ -59,4 +59,6 @@ int nearestX(int N, char *file, char *newFile);
 
 void buildTree();
 
+void queryExperiment();
+
 #endif

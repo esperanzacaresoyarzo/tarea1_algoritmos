@@ -10,7 +10,7 @@ int compare(const void* a, const void* b) {
     Entry* p2 = (Entry*)b;
 
     float c1 = (p1->mbr.x1 + p1->mbr.x2) / (float)2;
-    float c2 = (p2->mbr.y1 + p2->mbr.y2) / (float)2;
+    float c2 = (p2->mbr.x1 + p2->mbr.x2) / (float)2;
 
     if (c1 < c2) return -1;
     if (c1 > c2) return 1;
@@ -19,11 +19,13 @@ int compare(const void* a, const void* b) {
 
 // Calcula el MBR de los pares clave-valor arr, arr es de tamaño size
 Rect MBR(Entry arr[], int size) {
-    Rect newMBR = {arr[0].mbr.x1, arr[size-1].mbr.x2, arr[0].mbr.y1, arr[0].mbr.y2};
+    Rect newMBR = {arr[0].mbr.x1, arr[0].mbr.x2, arr[0].mbr.y1, arr[0].mbr.y2};
 
     for (int i=1; i<size; i++) {
-        if (newMBR.y1 > arr[i].mbr.y1) newMBR.y1 = arr[i].mbr.y1;
-        if (newMBR.y2 < arr[i].mbr.y2) newMBR.y2 = arr[i].mbr.y2;
+        if (arr[i].mbr.x1 < newMBR.x1) newMBR.x1 = arr[i].mbr.x1;
+        if (arr[i].mbr.x2 > newMBR.x2) newMBR.x2 = arr[i].mbr.x2;
+        if (arr[i].mbr.y1 < newMBR.y1) newMBR.y1 = arr[i].mbr.y1;
+        if (arr[i].mbr.y2 > newMBR.y2) newMBR.y2 = arr[i].mbr.y2;
     }
 
     return newMBR;
@@ -34,7 +36,7 @@ Rect MBR(Entry arr[], int size) {
 // newFile nombre del archivo que guardara el arbol R-Tree
 int nearestX(int N, char *file, char *newFile) {
     Entry *pares = (Entry *)malloc(N*sizeof(Entry));
-    FILE *archivo = fopen(file, "r");
+    FILE *archivo = fopen(file, "rb");
     if (archivo == NULL) {
         perror("Error archivo");
         exit(1);
@@ -86,10 +88,8 @@ int nearestX(int N, char *file, char *newFile) {
     }
     nodeCount++;
 
-    FILE *newArchivo = fopen(newFile, "w");
-    for (int i=0; i<(((N-1)/(B-1)) +3); i++) {
-        fwrite(&arbol[i], sizeof(Node), 1, newArchivo);
-    }
+    FILE *newArchivo = fopen(newFile, "wb");
+    fwrite(arbol, sizeof(Node), nodeCount, newArchivo);
     fclose(newArchivo);
 
     free(arbol);

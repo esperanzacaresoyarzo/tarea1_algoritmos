@@ -39,7 +39,7 @@ void buildTree() {
     char num = '0';
     for (int i=15; i<25; i++) {
         
-		char RandomNX[] = "trees/randomNX";
+		char RandomNX[30] = "trees/randomNX";
 		char end[] = {num, '.', 'b', 'i', 'n', '\0'};
 		strcat(RandomNX, end);
 		resetTime();
@@ -47,7 +47,7 @@ void buildTree() {
 		int tiempo_random_nx= getTime();
 		rndNXtime[i-15] = tiempo_random_nx;
 
-		char EuropaNX[] = "trees/europaNX";
+		char EuropaNX[30] = "trees/europaNX";
 		char end1[] = {num, '.', 'b', 'i', 'n', '\0'};
 		strcat(EuropaNX, end1);
 		resetTime();
@@ -57,7 +57,7 @@ void buildTree() {
 
 		Entry *entries = (Entry *)malloc((1<<i)*sizeof(Entry));
 
-		char RandomSTR[] = "trees/randomSTR";
+		char RandomSTR[30] = "trees/randomSTR";
 		char end2[] = {num, '.', 'b', 'i', 'n', '\0'};
 		strcat(RandomSTR, end2);
 		resetTime();
@@ -69,7 +69,7 @@ void buildTree() {
 		rndSTRtime[i-15] = tiempo_random_str;
 		free(arbolRnd);
 
-		char EuropaSTR[] = "trees/europaSTR";
+		char EuropaSTR[30] = "trees/europaSTR";
 		char end3[] = {num, '.', 'b', 'i', 'n', '\0'};
 		strcat(EuropaSTR, end3);
 		resetTime();
