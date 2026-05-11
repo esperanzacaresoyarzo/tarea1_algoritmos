@@ -2,7 +2,12 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
+//compareX: const void* const void* -> int
+//Recibe dos punteros a Entry usados por qsort
+// y retorna -1 su el centro X del primero es menor, 1 si es mayor 
+// o 0 si son iguales
 int compareX(const void* a, const void* b) {
     Entry* e1 = (Entry*)a;
     Entry* e2 = (Entry*)b;
@@ -14,7 +19,10 @@ int compareX(const void* a, const void* b) {
     if (c1 > c2) return 1;
     return 0;
 }
-
+//compareY: const void* const void* -> int
+//Recibe dos punteros a Entry usados por qsort
+// y retorna -1 su el centro Y del primero es menor, 1 si es mayor 
+// o 0 si son iguales
 int compareY(const void* a, const void* b) {
     Entry* e1 = (Entry*)a;
     Entry* e2 = (Entry*)b;
@@ -26,7 +34,9 @@ int compareY(const void* a, const void* b) {
     if (c1 > c2) return 1;
     return 0;
 }
-
+// buildSTRLevel: Entry* int Node* int* Entry* -> int
+//Recibe las entradas iniciales, cantidad de entradas y el arreglo
+// retorna la cantidad total de nodos construidos en el R-tree
 int buildSTRLevel(Entry* entries, int n, Node* nodes, int* nodeCount, Entry* parentEntries) {
     qsort(entries, n, sizeof(Entry), compareX);
 
@@ -60,12 +70,19 @@ int buildSTRLevel(Entry* entries, int n, Node* nodes, int* nodeCount, Entry* par
             parentEntries[parentCount].mbr = computeMBR(entries, groupStart, groupEnd);
             parentEntries[parentCount].child = index;
             parentCount++;
+
+            if (parentCount > n) {
+                printf("Error: parentCount excede n\n");
+                exit(1);
+}
         }
     }
 
     return parentCount;
 }
-
+// buildSTR: Entry* int Node* -> int
+// Recibe las entradas iniciales, cantidad de entradas y el arreglo de nodos
+// Retorna la cantidad total de nodos construidos en el R-tree
 int buildSTR(Entry* entries, int n, Node* nodes) {
     int nodeCount = 1; // nodes[0] reservado para la raíz
 
@@ -82,8 +99,7 @@ int buildSTR(Entry* entries, int n, Node* nodes) {
     int currentCount = n;
 
     while (currentCount > B) {
-        int maxParents = (currentCount + B - 1) / B + 10;
-        Entry* parentEntries = malloc(sizeof(Entry) * maxParents);
+        Entry* parentEntries = malloc(sizeof(Entry) * currentCount);
 
         if (!parentEntries) {
             free(currentEntries);

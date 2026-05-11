@@ -10,7 +10,19 @@ CC4102 - Diseño y Análisis de Algoritmos
 ## Lenguaje
 C
 
+## Estructura del proyecto
+
+```text
+src/        Código fuente
+data/       Datasets de entrada
+results/    Árboles serializados y resultados
+docs/       Documentación
+```
 ## Compilar
 
 ```bash
-g++ -std=c++17 src/*.cpp -o main
+gcc src/*.c -lm -o main
+```
+
+## Validacion
+Tamano Node: 4096 bytes

@@ -4,6 +4,9 @@
 *.exe
 main
 
+# Archivos de debugging 
+main.dSYM/
+
 # Binarios grandes
 data/*.bin
 results/*.bin
@@ -16,4 +19,4 @@ results/*.bin
 
 # Resultados temporales
 results/*.csv
-results/*.pngmain
+results/*.png
